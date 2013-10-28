@@ -33,12 +33,15 @@
   <ItemGroup>
     <Reference Include="Aspose.Words">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\modules\Campus\Aspose.Words.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Campus.Configuration">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\modules\Campus\Campus.Configuration.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Campus.Report">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\modules\Campus\Campus.Report.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -46,24 +49,31 @@
     </Reference>
     <Reference Include="FISCA">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\kernel\FISCA.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Data">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\kernel\FISCA.Data.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Permission">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\kernel\FISCA.Permission.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Presentation">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\kernel\FISCA.Presentation.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.UDT">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\kernel\FISCA.UDT.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="K12.Data">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\modules\SHSchoolLoader\K12.Data.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="K12.Presentation">
       <HintPath>..\..\..\..\..\..\..\ischool desktop\modules\SHSchoolLoader\K12.Presentation.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
