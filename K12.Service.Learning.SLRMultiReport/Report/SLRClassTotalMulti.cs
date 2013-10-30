@@ -30,6 +30,8 @@ namespace K12.Service.Learning.SLRMultiReport
         Run _run; // 移動使用
         Document _template;
 
+        string _WarningMsg = "座號:{0} 姓名:{1} , 列印不完全";
+
         public SLRClassTotalMulti()
         {
             InitializeComponent();
@@ -110,20 +112,10 @@ namespace K12.Service.Learning.SLRMultiReport
                 {
                     if (student.ref_class_id == aClass.ref_class_id)
                     {
-                        //aClass.StudentObjList.Add(student);
-
-                        //if (!aClass.StudentIDList.Contains(student.ref_student_id))
-                        //{
-                        //    aClass.StudentIDList.Add(student.ref_student_id);
-                        //}
-
                         if (!aClass.StudentDic.ContainsKey(student.ref_student_id))
                         {
                             aClass.StudentDic.Add(student.ref_student_id, student);
                         }
-
-                        // ?? 一個學生只會在一個班 ?? 需要確認
-                        // break;
                     }
                 }
             }
@@ -140,10 +132,6 @@ namespace K12.Service.Learning.SLRMultiReport
             {
                 foreach (ClassTotalObj aClass in classList)
                 {
-                    //if (aClass.StudentIDList.Contains(slrRecord.RefStudentID))
-                    //{
-                    //    aClass.SetSLRInStudent(slrRecord);
-                    //}
                     if (aClass.StudentDic.ContainsKey(slrRecord.RefStudentID))
                     {
                         aClass.SetSLRInStudent(slrRecord);
@@ -201,7 +189,7 @@ namespace K12.Service.Learning.SLRMultiReport
                         return;
                     }
                 }
-                catch(Exception ex)
+                catch
                 {
                     
                     FISCA.Presentation.Controls.MsgBox.Show("檔案儲存錯誤,請檢查檔案是否開啟中!!");
@@ -220,6 +208,8 @@ namespace K12.Service.Learning.SLRMultiReport
         // WORD處理
         private Document SetDocument(ClassTotalObj aClass)
         {
+            StringBuilder WarningStudents = new StringBuilder();
+
             // 取得班級中所有學生清單
             List<StudentTotalObj> studentObjList = new List<StudentTotalObj>(aClass.StudentDic.Values);
             
@@ -230,12 +220,12 @@ namespace K12.Service.Learning.SLRMultiReport
             _run = new Run(PageOne);
             DocumentBuilder builder = new DocumentBuilder(PageOne);
 
-            // 新增學年度跟學期的標題
-            builder.MoveToMergeField("學年度"); // 移到有學年度的標籤上
-            Cell cellSchoolYear = (Cell)builder.CurrentParagraph.ParentNode;
-
             int columnCount = aClass.SLRSchoolYearSemesterDic.Count;
             int columnIndex = 1;
+
+            // 文件移到學年度跟學期的標題
+            builder.MoveToMergeField("學年度"); // 移到有學年度的標籤上
+            Cell cellSchoolYear = (Cell)builder.CurrentParagraph.ParentNode;
 
             // 準備學年度跟學期的標題
             List<string> SchoolYearSemesterList = new List<string>(aClass.SLRSchoolYearSemesterDic.Keys);
@@ -243,7 +233,10 @@ namespace K12.Service.Learning.SLRMultiReport
             // 排序
             SchoolYearSemesterList.Sort(SortSchoolYearSemester);
 
-            // 確保只有6個欄位
+            // 取得學年度跟學期的欄位數量
+            _MAX_COLUMN_COUNT = GetRemainColumn(cellSchoolYear);
+
+            // 確保資料的數量跟欄位一致
             if (SchoolYearSemesterList.Count > _MAX_COLUMN_COUNT)
             {
                 int delCount = SchoolYearSemesterList.Count - _MAX_COLUMN_COUNT;
@@ -283,6 +276,9 @@ namespace K12.Service.Learning.SLRMultiReport
             //學生ID
             foreach (StudentTotalObj student in studentObjList)
             {
+                // 用來計算輸出了幾次學年度跟學期的服務時數
+                int SLROutputCount = 0;
+
                 // 座號
                 Write(cell, student.seat_no);
                 cell = GetMoveRightCell(cell, 1);
@@ -307,6 +303,7 @@ namespace K12.Service.Learning.SLRMultiReport
                     if (student.SLRDic.ContainsKey(each))
                     {
                         Write(cell, student.SLRDic[each].ToString());
+                        SLROutputCount++;
                     }
                     else
                     {
@@ -319,6 +316,14 @@ namespace K12.Service.Learning.SLRMultiReport
                         cell = GetMoveRightCell(cell, 1);
                     }
                     columnIndex++;
+                }
+
+                // 假如學生服務學習的總學年度跟學期的數量不等於列印的的數量, 加入警告清單
+                if (student.SLRDic.Count != SLROutputCount )
+                {
+                    string msg = String.Format(_WarningMsg, student.seat_no, student.student_name);
+
+                    WarningStudents.AppendLine(msg);
                 }
 
                 Row Nextrow = cell.ParentRow.NextSibling as Row; //取得下一行
@@ -340,11 +345,25 @@ namespace K12.Service.Learning.SLRMultiReport
             name.Add("導師");
             value.Add(aClass.GetTeacherName());
 
+            name.Add("提示");
+            value.Add(WarningStudents.ToString());
+
             PageOne.MailMerge.Execute(name.ToArray(), value.ToArray());
 
             #endregion
 
             return PageOne;
+        }
+
+        private int GetRemainColumn(Cell cell)
+        {
+            if(cell == null) return 0;
+
+            Row row = cell.ParentRow;
+            int indexCol = row.IndexOf(cell);
+            int totalCol = row.Count;
+
+            return totalCol - indexCol;
         }
 
         // WORD處理, 以Cell為基準,向右移一格
@@ -361,7 +380,7 @@ namespace K12.Service.Learning.SLRMultiReport
             {
                 return table.Rows[row_index].Cells[col_index + count];
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }

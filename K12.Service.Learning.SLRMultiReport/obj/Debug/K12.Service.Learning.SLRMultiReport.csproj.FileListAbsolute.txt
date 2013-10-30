@@ -1,0 +1,8 @@
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\bin\Debug\K12.Service.Learning.SLRMultiReport.dll
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\bin\Debug\K12.Service.Learning.SLRMultiReport.pdb
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.csprojResolveAssemblyReference.cache
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.Properties.Resources.resources
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.SLRClassTotalMulti.resources
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.csproj.GenerateResource.Cache
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.dll
+C:\Dropbox\00-Work\iSchool\SourceCode\MyProjects\K12.Service.Learning.SLRMultiReport\K12.Service.Learning.SLRMultiReport\obj\Debug\K12.Service.Learning.SLRMultiReport.pdb
