@@ -52,6 +52,7 @@ namespace K12.Service.Learning.SLRMultiReport
                 reportConfig.Template = new Campus.Report.ReportTemplate(Properties.Resources.班級服務學習統計表_多學期_範本, Campus.Report.TemplateType.Word);
                 reportConfig.Save();
             }
+
         }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
